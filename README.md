@@ -1,10 +1,14 @@
-# PingPong:
+# PingPong
 
 **PingPong: Network Request Lifecycle Observatory** — a browser-based tool that visualizes what happens between entering a URL and receiving an HTTP response.
 
 > Integrated the Resource Timing API to surface real DNS, connect, TLS and TTFB metrics where servers permit, with explicit fallback and labelling of simulated data.
+
 > Built request export (cURL, fetch, HAR 1.2) and a CORS-aware security-header audit for inspecting HTTP responses in the browser.
+
 > Built an interactive browser-based network observability tool that visualizes DNS resolution, TCP handshakes, TLS negotiation, HTTP request/response flow, and network timing using vanilla JavaScript and SVG.
+
+
 > Implemented an HTTP request inspector with live Fetch API requests, CORS-aware fallback to a clearly labelled simulation, and local request history.
 
 ### Deployed at [https://harshneyvijay.github.io/PingPong-network-request-lifecycle-observatory/]
