@@ -1,0 +1,470 @@
+button,
+select,
+input,
+textarea {
+  background: var(--panel2);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 6px 10px;
+  font-size: 13px;
+}
+button {
+  cursor: pointer;
+  font-family: var(--sans);
+}
+button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+button.primary {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+button.sm {
+  padding: 2px 8px;
+  font-size: 11px;
+  margin-left: 4px;
+}
+nav {
+  display: flex;
+  gap: 6px;
+}
+.builder {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.builder #url {
+  flex: 1;
+  min-width: 200px;
+}
+.builder-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+.chk {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+.chk input {
+  padding: 0;
+}
+.err-text {
+  color: var(--err);
+  margin-top: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  white-space: pre-line;
+}
+.notice {
+  margin-top: 8px;
+  border-left: 3px solid var(--warn);
+  background: var(--panel2);
+  padding: 8px 12px;
+  font: 12px var(--mono);
+  white-space: pre-line;
+}
+.cfg {
+  margin-top: 8px;
+}
+.cfg summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 12px;
+}
+.row {
+  display: flex;
+  gap: 6px;
+  margin: 6px 0;
+}
+.row input {
+  flex: 1;
+  min-width: 0;
+}
+textarea {
+  width: 100%;
+  resize: vertical;
+  margin-top: 6px;
+}
+[role="tablist"] {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--line);
+  margin: 6px 0;
+  overflow-x: auto;
+}
+[role="tab"] {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: none;
+  color: var(--muted);
+  white-space: nowrap;
+}
+[role="tab"][aria-selected="true"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--muted);
+  display: inline-block;
+}
+.dot.run {
+  background: var(--accent);
+}
+.dot.ok {
+  background: var(--ok);
+}
+.dot.err {
+  background: var(--err);
+}
+.tag {
+  font: 10px var(--mono);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 1px 5px;
+  color: var(--muted);
+}
+.tag.sim {
+  color: var(--warn);
+  border-color: var(--warn);
+}
+.tag.live {
+  color: var(--ok);
+  border-color: var(--ok);
+}
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+  padding: 10px;
+  border: 1px dashed var(--line);
+  margin-bottom: 8px;
+}
+.nodes {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.node {
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 6px;
+  background: var(--panel2);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: relative;
+}
+.node button.main {
+  border: 0;
+  background: none;
+  text-align: left;
+  padding: 0;
+  color: var(--text);
+}
+.node .why {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  padding: 0 6px;
+  font-size: 11px;
+  border-radius: 50%;
+}
+.node .st {
+  font: 11px var(--mono);
+  color: var(--muted);
+  font-style: normal;
+}
+.node[data-state="active"] {
+  border-color: var(--accent);
+}
+.node[data-state="active"] .st {
+  color: var(--accent);
+}
+.node[data-state="complete"] .st {
+  color: var(--ok);
+}
+.node[data-state="error"] {
+  border-color: var(--err);
+}
+.node[data-state="skipped"] {
+  opacity: 0.5;
+}
+#diagram {
+  width: 100%;
+  height: auto;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  color: var(--muted);
+}
+#diagram .head rect {
+  fill: var(--panel2);
+  stroke: var(--line);
+}
+#diagram .head.active rect {
+  stroke: var(--accent);
+}
+#diagram .t1 {
+  font: 600 11px var(--mono);
+  fill: var(--text);
+}
+#diagram .t2 {
+  font: 9px var(--mono);
+  fill: var(--muted);
+}
+#diagram .life {
+  stroke: var(--line);
+  stroke-dasharray: 3 4;
+}
+#diagram .msg {
+  opacity: 0.15;
+  transition: opacity 0.3s;
+}
+#diagram .msg.on {
+  opacity: 1;
+}
+#diagram line {
+  stroke: currentColor;
+}
+#diagram .msg.on line {
+  stroke: var(--accent);
+  color: var(--accent);
+}
+#diagram .lab {
+  font: 10px var(--mono);
+  fill: var(--text);
+  text-anchor: middle;
+}
+#diagram .pkt {
+  fill: var(--accent);
+  filter: drop-shadow(0 0 4px var(--accent));
+}
+#diagram .proc {
+  fill: var(--panel2);
+  stroke: var(--accent);
+}
+.info {
+  font: 12px var(--mono);
+  min-height: 40px;
+}
+.info dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 12px;
+  margin: 0;
+}
+.info dt {
+  color: var(--muted);
+}
+.info dd {
+  margin: 0;
+}
+.explain {
+  margin-top: 8px;
+  border-left: 3px solid var(--accent);
+  padding: 8px 12px;
+  background: var(--panel2);
+  font-size: 12px;
+}
+.explain h4 {
+  margin: 6px 0 2px;
+  font: 600 10px var(--mono);
+  color: var(--accent);
+}
+.explain p {
+  margin: 0;
+}
+.insp table,
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font: 12px var(--mono);
+}
+.insp td,
+.insp th,
+.table td {
+  text-align: left;
+  padding: 4px 6px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  word-break: break-all;
+}
+.insp th {
+  color: var(--muted);
+  font-weight: 400;
+}
+pre.code {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  padding: 8px;
+  overflow: auto;
+  max-height: 260px;
+  font-size: 12px;
+  margin: 6px 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.k {
+  color: var(--accent);
+}
+.s2 {
+  color: var(--ok);
+}
+.s3 {
+  color: var(--warn);
+}
+.s4,
+.s5 {
+  color: var(--err);
+}
+.term {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  padding: 8px;
+  height: 200px;
+  overflow: auto;
+  font-size: 12px;
+  margin: 0;
+  white-space: pre-wrap;
+}
+.wf {
+  display: grid;
+  grid-template-columns: 70px 1fr 60px;
+  gap: 4px 8px;
+  align-items: center;
+  font: 12px var(--mono);
+}
+.wf .bar {
+  height: 10px;
+  background: var(--panel2);
+  position: relative;
+}
+.wf .bar i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--accent);
+  opacity: 0.85;
+}
+.seg {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.seg button[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.learn {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 320px;
+  overflow: auto;
+}
+.item {
+  text-align: left;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+.item span {
+  margin-left: auto;
+  color: var(--muted);
+  font: 11px var(--mono);
+}
+.item.hot {
+  border-color: var(--accent);
+  background: var(--panel);
+}
+.detail {
+  border: 1px solid var(--line);
+  padding: 10px;
+  border-radius: var(--r);
+  background: var(--panel2);
+  font-size: 13px;
+}
+dialog {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--accent);
+  border-radius: var(--r);
+  max-width: 520px;
+  width: 92%;
+}
+dialog::backdrop {
+  background: #0008;
+}
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.hrow {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: 12px;
+  font: 12px var(--mono);
+  padding: 4px 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border-radius: 0;
+  border-width: 0 0 1px;
+}
+@media (max-width: 860px) {
+  .nodes {
+    grid-template-columns: 1fr 1fr;
+  }
+  .learn {
+    grid-template-columns: 1fr;
+  }
+}
+.dot.warn {
+  background: var(--warn);
+}
+.notice.err {
+  border-left-color: var(--err);
+}
+.notice.ok {
+  border-left-color: var(--ok);
+}
+#diagram .msg.on[data-kind="success"] line {
+  stroke: var(--ok);
+  color: var(--ok);
+}
+#diagram .msg.on[data-kind="redirect"] line {
+  stroke: var(--warn);
+  color: var(--warn);
+}
+#diagram .msg.on[data-kind="error"] line {
+  stroke: var(--err);
+  color: var(--err);
+}

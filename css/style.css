@@ -1,0 +1,143 @@
+:root {
+  --bg: #0c0c0c;
+  --panel: #161616;
+  --panel2: #1e1e1e;
+  --line: #2c2c2c;
+  --text: #e8e6df;
+  --muted: #8a8a85;
+  --accent: #f9f1a5;
+  --on-accent: #111;
+  --ok: #4ade80;
+  --warn: #fbbf24;
+  --err: #f87171;
+  --mono: ui-monospace, "Cascadia Code", Consolas, monospace;
+  --sans: system-ui, "Segoe UI", sans-serif;
+  --r: 4px;
+}
+[data-theme="light"] {
+  --bg: #f4f3ee;
+  --panel: #fff;
+  --panel2: #eceae2;
+  --line: #d4d1c6;
+  --text: #1a1a18;
+  --muted: #5f5e58;
+  --accent: #8a6d00;
+  --on-accent: #fff;
+  --ok: #15803d;
+  --warn: #b45309;
+  --err: #b91c1c;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 var(--sans);
+}
+code,
+pre,
+input,
+textarea,
+select,
+.mono {
+  font-family: var(--mono);
+}
+h2 {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--muted);
+}
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  flex-wrap: wrap;
+}
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex: 1;
+}
+.logo {
+  font-family: var(--mono);
+  color: var(--accent);
+  font-size: 16px;
+}
+.sub {
+  color: var(--muted);
+  font-size: 12px;
+}
+.statusbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: 12px var(--mono);
+}
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 12px;
+}
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 8px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 12px;
+}
+.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+.muted {
+  color: var(--muted);
+}
+.small {
+  font-size: 12px;
+}
+.foot {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px;
+  color: var(--muted);
+  font-size: 12px;
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (max-width: 860px) {
+  .grid,
+  .two {
+    grid-template-columns: 1fr;
+  }
+  .sub {
+    display: none;
+  }
+}

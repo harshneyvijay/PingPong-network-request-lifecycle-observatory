@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PingPong — Network Request Lifecycle Observatory</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand">
+        <b class="logo">PingPong</b
+        ><span class="sub">Network Request Lifecycle Observatory</span>
+      </div>
+      <div class="statusbar" role="status" aria-live="polite">
+        <i id="statusDot" class="dot"></i>
+        <span id="statusText">SIMULATION READY</span>
+        <span id="modeBadge" class="tag">SIMULATION</span>
+      </div>
+      <nav aria-label="Controls">
+        <button id="btnTheme">Theme</button
+        ><button id="btnHistory">History</button
+        ><button id="btnReset">Reset</button
+        ><button id="btnKeys" aria-label="Keyboard shortcuts">?</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="panel" aria-label="Request builder">
+        <div class="builder">
+          <select id="method" aria-label="HTTP method">
+            <option>GET</option>
+            <option>POST</option>
+            <option>PUT</option>
+            <option>PATCH</option>
+            <option>DELETE</option>
+          </select>
+          <input
+            id="url"
+            type="text"
+            spellcheck="false"
+            autocomplete="off"
+            placeholder="https://example.com/api/users"
+            aria-label="Request URL"
+          />
+          <button id="send" class="primary">Send</button>
+          <button id="stop" disabled>Stop</button>
+          <button id="replay">Replay</button>
+        </div>
+        <div class="builder-meta">
+          <select id="preset" aria-label="Presets">
+            <option value="">Presets…</option>
+          </select>
+          <label class="chk"
+            ><input type="checkbox" id="liveToggle" checked /> Try live
+            fetch()</label
+          >
+          <code id="finalUrl" class="muted"></code>
+        </div>
+        <div id="urlError" class="err-text" role="alert" hidden></div>
+        <div id="notice" class="notice" role="alert" hidden></div>
+        <details class="cfg">
+          <summary>Request configuration</summary>
+          <div role="tablist" id="cfgTabs" aria-label="Configuration">
+            <button role="tab" data-tab="params">Params</button
+            ><button role="tab" data-tab="headers">Headers</button
+            ><button role="tab" data-tab="body">Body</button>
+          </div>
+          <div id="pParams"><div id="paramRows"></div></div>
+          <div id="pHeaders" hidden>
+            <div id="headerRows"></div>
+            <p class="muted small">
+              Authorization-like headers are never saved to history.
+            </p>
+          </div>
+          <div id="pBody" hidden>
+            <textarea
+              id="bodyText"
+              spellcheck="false"
+              aria-label="JSON body"
+              rows="6"
+            >
+{
+  "name": "PingPong",
+  "source": "browser"
+}</textarea
+            >
+            <p class="muted small">
+              Sent for POST / PUT / PATCH only. Validated as JSON.
+            </p>
+          </div>
+        </details>
+      </section>
+
+      <section class="panel viz" aria-label="Network lifecycle visualization">
+        <div class="panel-head">
+          <h2>Network Lifecycle</h2>
+          <label class="chk"
+            ><input type="checkbox" id="explainToggle" /> Explain mode</label
+          >
+        </div>
+        <div id="empty" class="empty">
+          <b>UNDERSTAND THE JOURNEY</b
+          ><span
+            >Enter a URL and watch a request travel through
+            <code>DNS → TCP → TLS → HTTP → SERVER → RESPONSE</code></span
+          ><button id="tryExample">Try example.com</button>
+        </div>
+        <div id="nodes" class="nodes"></div>
+        <svg
+          id="diagram"
+          viewBox="0 0 720 460"
+          role="img"
+          aria-label="Client / server sequence diagram"
+        ></svg>
+        <div class="two">
+          <div id="stageInfo" class="info"></div>
+          <div id="srvNote" class="info"></div>
+        </div>
+        <div id="explain" class="explain" hidden></div>
+      </section>
+
+      <div class="grid">
+        <section class="panel" aria-label="Request inspector">
+          <div class="panel-head"><h2>Inspector</h2></div>
+          <div role="tablist" id="inspTabs" aria-label="Inspector">
+            <button role="tab" data-tab="overview">Overview</button
+            ><button role="tab" data-tab="request">Request</button
+            ><button role="tab" data-tab="response">Response</button
+            ><button role="tab" data-tab="headers">Headers</button
+            ><button role="tab" data-tab="timing">Timing</button
+            ><button role="tab" data-tab="export">Export</button
+            ><button role="tab" data-tab="security">Security</button
+            ><button role="tab" data-tab="compare">Compare</button>
+          </div>
+          <div id="inspBody" class="insp"></div>
+        </section>
+        <section class="panel" aria-label="Timeline and terminal">
+          <div class="panel-head"><h2>Timeline</h2></div>
+          <div id="timeline"></div>
+          <div class="panel-head">
+            <h2>Terminal</h2>
+            <span
+              ><button id="termClear" class="sm">Clear</button
+              ><button id="termCopy" class="sm">Copy</button></span
+            >
+          </div>
+          <pre id="term" class="term" aria-live="off">$ PingPong ready</pre>
+        </section>
+      </div>
+
+      <section class="panel" aria-label="Learning modules">
+        <div class="panel-head"><h2>Protocol Explorer</h2></div>
+        <div role="tablist" id="learnTabs" aria-label="Learning">
+          <button role="tab" data-tab="layers">OSI / TCP-IP</button
+          ><button role="tab" data-tab="status">HTTP Status</button
+          ><button role="tab" data-tab="tcpudp">TCP vs UDP</button
+          ><button role="tab" data-tab="dns">DNS</button
+          ><button role="tab" data-tab="http">HTTP Versions</button>
+        </div>
+        <div id="learnBody" class="learn"></div>
+      </section>
+
+      <section class="panel" id="historyPanel" aria-label="Request history">
+        <div class="panel-head">
+          <h2>History</h2>
+          <button id="histClear" class="sm">Clear history</button>
+        </div>
+        <div id="histBody"></div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      Privacy: PingPong has no analytics or backend. Requests go only from your
+      browser to the URL you enter. History is stored in localStorage; auth
+      headers and bodies are never saved. Values marked
+      <span class="tag sim">SIMULATED</span> are educational, not captured from
+      the network.
+    </footer>
+
+    <dialog id="modal">
+      <div class="modal-head">
+        <b id="modalTitle"></b
+        ><button id="modalClose" aria-label="Close">✕</button>
+      </div>
+      <div id="modalBody"></div>
+    </dialog>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/network.js"></script>
+    <script src="js/inspector.js"></script>
+    <script src="js/tools.js"></script>
+    <script src="js/history.js"></script>
+    <script src="js/education.js"></script>
+    <script src="js/simulation.js"></script>
+    <script>
+      PF.init();
+    </script>
+  </body>
+</html>
